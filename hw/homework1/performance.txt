@@ -1,0 +1,13 @@
+firebase-A: Requests Made - 2, Size of 1st Download (Bytes) - 15719, Size of 2nd download (Bytes) - 343179
+
+firebase-B-nested: Requests Made - 1, Size of Download (Bytes) - 26022
+
+firebase-B: Requests Made - 2, Size of 1st Download (Bytes) - 15719, Size of 2nd download (Bytes) - 47651
+
+firebase-C: Requests Made - 2, Size of 1st Download (Bytes) - 36475, Size of 2nd download (Bytes) - 74036
+
+Analysis: The download URL's choosen were done so with the intent of limiting the number of bytes 
+that are shown for each individual table. I found that the easist means to accomplish this was to 
+utilize the filtration of North America for parts A, B, and B-nested. This could be done using the orderBy and equalTo methods. 
+Additionally, for part C I found that I could filter on GNP by starting at the threshold value of 10000. 
+This was accomplished by using the orderBy and startAt methods.
