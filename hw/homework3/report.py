@@ -10,6 +10,7 @@ cnx = mysql.connector.connect(user = 'dsci551', password = 'dsci551', database =
 output_dict = {}
 
 def create_report(date, output_file_name):
+    """ Find the number of confirmed and deceased cases by gender, age, and province."""
     global cnx
     date_formatted = date[3:] + '-' + date[0:2] + '%'
     prev_month = int(date[0:2])
@@ -20,7 +21,7 @@ def create_report(date, output_file_name):
     previous_date_formatted = date[3:] + '-' + prev_month_str + '%'
 
     args = [date_formatted, previous_date_formatted, date_formatted, previous_date_formatted, previous_date_formatted]
-    
+
     # Gender Query:
     cursor = cnx.cursor()
     gender_query = ("select date, sex, confirmed, deceased from (select * from timegender where date like '{}' OR date like '{}') as t" +
@@ -52,7 +53,7 @@ def create_report(date, output_file_name):
     cursor.close()
 
     with open(output_file_name, 'w') as fp:
-        json.dump(output_dict, fp)
+        json.dump(output_dict, fp, indent=4)
     return
 
 def format_dict(vals, key):

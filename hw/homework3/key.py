@@ -9,9 +9,10 @@ potential_key = sys.argv[2]
 cnx = mysql.connector.connect(user = 'dsci551', password = 'dsci551', database = 'covid19')
 
 def check_key(table, potential_key):
+    """ Find which attributes may serve as the key for a table in covid19 dataset."""
     global cnx
     cursor = cnx.cursor()
-    key_query = "select {}, count(*) from dsci551.{} group by {} having count(*) > 1 order by count(*) desc limit 5;".format(potential_key, table, potential_key)
+    key_query = "select {}, count(*) from `{}` group by {} having count(*) > 1 order by count(*) desc limit 5;".format(potential_key, table, potential_key)
     cursor.execute(key_query)
     duplicate_rows = cursor.fetchall()
     if len(duplicate_rows) == 0:
@@ -22,7 +23,10 @@ def check_key(table, potential_key):
             formatted_result = ''
             i = 0
             while i < result_len:
-                formatted_result += str(result[i]) + ' '
+                if i == (result_len-1):
+                    formatted_result += str(result[i])
+                else:
+                    formatted_result += str(result[i]) + ', '
                 i += 1
             print(formatted_result)
             
