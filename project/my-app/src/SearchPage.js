@@ -1,39 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
-import CountryList from './CountryList';
+import SongList from './SongList';
+import firebase from 'firebase';
+import config from "./config";
+import Title from './Title';
 
 const SearchPage = (props) => {
-  const [input, setInput] = useState('');
-  const [countryListDefault, setCountryListDefault] = useState();
-  const [countryList, setCountryList] = useState();
+  var [input, setInput] = useState('');
+  var [songListDefault, setSongListDefault] = useState();
+  var [songList, setSongList] = useState();
+  var dataInput = []
 
-  const fetchData = async () => {
-    return await fetch('https://restcountries.eu/rest/v2/all')
-      .then(response => response.json())
-      .then(data => {
-         setCountryList(data) 
-         setCountryListDefault(data)
-       });
+  const fetchSongData = () => {
+    let ref = firebase.database().ref("songs/songs");
+    ref.on('value', snapshot => {
+      var arr = [];
+      /*console.log(snapshot.child("0").val())*/
+      for (var i=0; i < 200; i++) {
+        const state = snapshot.child(i).val();
+        arr.push(state)
+      } 
+      dataInput = {data: arr}
+      songListDefault = dataInput
+      setSongListDefault(songListDefault)
+    });
+    console.log('DATA RETRIEVED');
   }
 
   const updateInput = async (input) => {
-     const filtered = countryListDefault.filter(country => {
-      return country.name.toLowerCase().includes(input.toLowerCase())
-     })
-     setInput(input);
-     setCountryList(filtered);
+
+    const filtered = songListDefault["data"].filter(song => {
+     return song.title.toLowerCase().includes(input)
+    })
+    setInput(input);
+    songList = {data: filtered}
+    setSongList(songList)
   }
 
-  useEffect( () => {fetchData()},[]);
+  useEffect( () => {fetchSongData()});
 	
   return (
     <>
       <h1>Song List</h1>
       <SearchBar 
-       input={input} 
+       input={input}
        onChange={updateInput}
       />
-      <CountryList countryList={countryList}/>
+      <SongList songList={songList}/>
+      <Title/>
     </>
    );
 }
