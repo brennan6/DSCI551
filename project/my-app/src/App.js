@@ -33,8 +33,7 @@ class App extends Component {
     var dataInput = this.state
     return (
         <div className = "App">
-            <SearchPage
-            />
+            <SearchPage/>
         </div>
     )
   }

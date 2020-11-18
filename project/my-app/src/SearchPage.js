@@ -24,10 +24,9 @@ const SearchPage = (props) => {
       songListDefault = dataInput
       setSongListDefault(songListDefault)
     });
-    console.log('DATA RETRIEVED');
   }
 
-  const updateInput = async (input) => {
+  const updateInput = (input) => {
 
     const filtered = songListDefault["data"].filter(song => {
      return song.title.toLowerCase().includes(input)

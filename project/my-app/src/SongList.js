@@ -1,12 +1,10 @@
-import React from 'react';
-import {View} from 'react'
-
-
+import React, { useState } from 'react';
+import RankDB from './RankDB';
 
 const SongList = ({songList=[]}) => {
-  var clicked = false
   const [showResultsSong, setShowResultsSong] = React.useState(false)
   const [showResultsRank, setShowResultsRank] = React.useState(false)
+  const [count, setCount] = useState(0);
   const onClickSong = () => setShowResultsSong(true)
   const onClickRank = () => setShowResultsRank(true)
   /*console.log(songList)*/
@@ -27,12 +25,13 @@ const SongList = ({songList=[]}) => {
               {showResultsSong ? <button onClick={onClickRank}>Rank</button> : <p/>}
               
               {showResultsRank ? <div>
-                                    <button>1 </button>
-                                    <button>2 </button>
-                                    <button>3 </button>
-                                    <button>4 </button>
-                                    <button>5 </button>
+                                    <button onClick={() => setCount(1)}>1 </button>
+                                    <button onClick={() => setCount(2)}>2 </button>
+                                    <button onClick={() => setCount(3)}>3 </button>
+                                    <button onClick={() => setCount(4)}>4 </button>
+                                    <button onClick={() => setCount(5)}>5 </button>
                                  </div> : <p/>}
+              {count ? <div><p>{"Ranking: " + count}</p><RankDB/></div> : <p/>}
               </li>
           })}
         </ul>
