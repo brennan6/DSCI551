@@ -33,7 +33,10 @@ const SongList = ({songList=[]}) => {
                                     <button onClick={() => setCount(4)}>4 </button>
                                     <button onClick={() => setCount(5)}>5 </button>
                                  </div> : <p/>}
-              {count ? <div><p>{"Ranking: " + count}</p><RankDB/></div> : <p/>}
+              {count ? <div><p>{"Ranking: " + count}</p><RankDB
+                                                        song={song.title}
+                                                        score={count}
+                                                        /></div> : <p/>}
               </li>
           })}
         </ul>

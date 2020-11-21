@@ -1,7 +1,8 @@
 from pyspark.sql import SparkSession
 import json
 
-""" (3) Spark Aggregation of Song Data and Rank Data prior to Upload to Firebase """
+""" (3) Spark Aggregation of Song Data and Rank Data prior to Upload to Firebase
+    ~/spark-3.0.1-bin-hadoop2.7/bin/spark-submit musicDataAggregations.py """
 spark = SparkSession.builder.appName('musicDataAggregation').getOrCreate()
 
 song_df = spark.read.json('./artist_data.json')

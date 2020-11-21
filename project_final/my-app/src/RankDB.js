@@ -1,5 +1,5 @@
 
-const RankDB =  async () => {
+const RankDB = ({song:title, score:rank}) => {
     /*await fetch('http://localhost:8080/ranks', {
         method: 'GET'
     }).then(function(response) {
@@ -8,17 +8,21 @@ const RankDB =  async () => {
     }).then((items) => {
         return items.song;
       });*/
-      
+    console.log(title)
+    console.log(rank)
+
     fetch('http://localhost:8080/ranks/posts', {
         method: 'POST',
         headers: {'Content-Type': 'application/json',
         'Accept': 'application/json'},
         body: JSON.stringify({
-            song: "Up Down",
-            score: "5"
+            song: title,
+            score: rank
         })
     }).then(function(response) {
-        const items = response.json()
+        return response.json();
+    }).then(function(data) {
+        const items = data;
         console.log(items)
     })
     

@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser')
+var bodyParser = require('body-parser')
 
 const connection = mysql.createPool({
   host     : 'project-dsci551-ranks.c8u9e3pxnupz.us-east-1.rds.amazonaws.com',
@@ -21,10 +21,10 @@ connection.query('INSERT INTO ranks SET ?', song_rank, (error, results) => {
 
 });*/
 const app = express();
-const song_rank = {song: "Top of the World", score: "4"}
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.options('*', cors());
-app.use(bodyParser);
 /*app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
@@ -47,15 +47,24 @@ app.get('/ranks', function (req, res) {
   });
 });
 
-var data = {
-  message: 'hello',
-  data: '5'
-};
-app.post('/ranks/posts', async function (req, res) {
-  /*res.send(data)*/
-  res.send(data)
-  console.log(req.body)
+app.post('/ranks/posts', function (req, res) {
+      res.send({ status: 'SUCCESS' });
+      connection.getConnection(function (err, connection) {
+        // Executing the MySQL query (select all data from the 'users' table).
+        connection.query('INSERT INTO ranks SET ?', req.body, (error, results) => {
+          // If some error occurs, we throw an error.
+          if (error) throw error;
+
+          if (!Object.keys(req.body).length === 0) {
+            res.redirect('back')
+          }
+          // Getting the 'response' from the database and sending it to our route. This is were the data is.
+        });
+      });
+      return;
+        // use post['blah'], etc.
 });
+
 
 app.listen(8080, () => {
   console.log('Go to http://localhost:8080/ranks so you can see the data.');
