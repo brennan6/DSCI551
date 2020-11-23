@@ -4,20 +4,25 @@ import RankDB from './RankDB';
 const SongList = ({songList=[]}) => {
   const [showResultsSong, setShowResultsSong] = React.useState(false)
   const [showResultsRank, setShowResultsRank] = React.useState(false)
+  const [reset, setReset] = React.useState(false)
   const [count, setCount] = useState(0);
   const onClickSong = () => setShowResultsSong(true)
+  const onClickSongNegate = () => setShowResultsSong(false)
   const onClickRank = () => setShowResultsRank(true)
-  /*console.log(songList)*/
-  /*console.log(Object.keys(songList).length)*/
+  /*const onClickReset = () => setReset(true)*/
+  const resetBools = () => {
+    setShowResultsRank(false);
+    setShowResultsSong(false);
+    setCount(0)
+  }
+
   if (Object.keys(songList).length) {
-    /*console.log(Object.keys(songList["data"]).length)*/
     if (Object.keys(songList["data"]).length) {
-      /* console.log(songList["data"]) */
       return (
         <ul>
           {songList["data"].map((song,index)=>{
-              return <li key={index}><button onClick={onClickSong}>{song.title}
-              </button>
+              return <li key={index}>
+              <button onClick={onClickSong}>{song.title}</button>
               {showResultsSong ? <p>{"album: " + song.album} </ p> : <p/>}
               {showResultsSong ? <p>{"artist: " + song.artist} </ p> : <p/>}
               {showResultsSong ? <p>{"year: " + song.year} </ p> : <p/>}
@@ -37,6 +42,7 @@ const SongList = ({songList=[]}) => {
                                                         song={song.title}
                                                         score={count}
                                                         /></div> : <p/>}
+              {showResultsSong ? <button onClick={resetBools}>Reset</button> : <p/>}
               </li>
           })}
         </ul>

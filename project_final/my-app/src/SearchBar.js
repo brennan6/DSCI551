@@ -2,8 +2,7 @@ import React from 'react';
 
 const SearchBar = ({input:keyword, onChange:updateInput}) => {
   const BarStyling = {width:"20rem",background:"#F2F1F9", border:"none", padding:"0.5rem"};
-  /*console.log(updateInput)*/
-  /*console.log(keyword)*/
+
   return (
     <input 
      style={BarStyling}
