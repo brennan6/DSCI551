@@ -27,7 +27,7 @@ const SongList = ({songList=[]}) => {
               {showResultsSong ? <p>{"artist: " + song.artist} </ p> : <p/>}
               {showResultsSong ? <p>{"year: " + song.year} </ p> : <p/>}
               {showResultsSong ? <p>{"lyrics: " + song.lyrics} </ p> : <p/>}
-              {showResultsSong ? <p>{"average rank: " + song.avg_rank} </ p> : <p/>}
+              {showResultsSong ? <p>{"average rank: " + song.avg_rank.toFixed(2)} </ p> : <p/>}
               {showResultsSong ? <p>{"count ranks: " + song.count_ranks} </ p> : <p/>}
               {showResultsSong ? <button onClick={onClickRank}>Rank</button> : <p/>}
               
