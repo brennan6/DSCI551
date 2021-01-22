@@ -1,0 +1,13 @@
+#data
+city.json
+country.json
+countrylanguage.json
+
+#spark
+spark-warehouse
+
+#scratchwork
+scratch.py
+
+#write-up
+Matthew_Brennan_hw4_report.pdf
